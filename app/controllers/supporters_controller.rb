@@ -17,8 +17,9 @@ class SupportersController < ApplicationController
     @supporter= Supporter.new params_new
     @supporter.status = "Undone"
     if @supporter.save
-      redirect_to supporter_path(@supporter)
+      redirect_to supporter_path(@supporter), notice: "Support Add"
     else
+      flash[:alert] = "Error occured"
       render :new
     end
   end
@@ -34,8 +35,9 @@ class SupportersController < ApplicationController
     params_new = params.require(:supporter).permit(:name, :email, :department,:message, :status)
     @supporter = Supporter.find params[:id]
    if @supporter.update(params_new)
-     redirect_to supporter_path(@supporter)
+     redirect_to supporter_path(@supporter), notice: "Support edited"
    else
+     flash[:alert] = "Error occured"
      render :edit
    end
   end
