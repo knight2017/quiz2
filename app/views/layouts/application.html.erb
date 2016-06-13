@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz2</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <nav>
+    <a href="/supporters">Home</a> |
+    <a href="/supporters/new">Add New Supporters</a>|
+    <%= form_tag home_path do  %>
+    <%= text_field_tag :word, params[:word] %>
+    <%= submit_tag "Search" %>
+    <% end %>
+  </nav>
+
+<%= yield %>
+
+</body>
+</html>

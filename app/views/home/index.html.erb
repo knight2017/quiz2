@@ -1,0 +1,41 @@
+<h1>Search Result</h1>
+<div>
+<table  width="59%" border="1px">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Messages</th>
+    <th width="200px">Actions</th>
+  </tr>
+  <% @supporters.each do |supporter| %>
+  <tr>
+    <td><%= supporter.name %></td>
+    <td><%= supporter.email %></td>
+    <td><%= supporter.department %></td>
+    <td><%= supporter.message.truncate(25) %></td>
+    <td><%= link_to "Edit",   edit_supporter_path(supporter) %>
+        <%= link_to "Delete", supporter_path(supporter),
+                          method: :delete,
+                          data:   {confirm: "Are you sure?"} %>
+       <%=link_to "#{supporter.status}",   edit_supporter_path(supporter)%></td>
+  </tr>
+  <% end %>
+</table>
+<br>
+</div>
+
+
+<% if session[:pgnum].to_i <= 0%>
+<%= "< Previous" %>
+<% else %>
+<%= link_to '< Previous', home_path(pgnum: session[:pgnum].to_i-1, word: session[:word])%>
+<% end %>
+<% for i in 0...@numofpg %>
+<%= link_to " #{i+1} ", home_path(pgnum: i, word: session[:word]) %>
+<% end %>
+<% if session[:pgnum].to_i > @numofpg-2 %>
+<%= "next >" %>
+<% else %>
+<%= link_to 'next >', home_path(pgnum: session[:pgnum].to_i+1, word: session[:word])%>
+<% end %>

@@ -1,0 +1,44 @@
+
+
+<h1>Support Requests</h1>
+<div>
+<table  width="59%" border="1px">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Messages</th>
+    <th width="200px">Actions</th>
+  </tr>
+  <% @supporters.each do |supporter| %>
+  <tr>
+    <td><%= supporter.name %></td>
+    <td><%= supporter.email %></td>
+    <td><%= supporter.department %></td>
+    <td><%= supporter.message.truncate(25) %></td>
+    <td><%= link_to "Edit",   edit_supporter_path(supporter) %>
+        <%= link_to "Delete", supporter_path(supporter),
+                          method: :delete,
+                          data:   {confirm: "Are you sure?"} %>
+       <%=link_to "#{supporter.status}",   edit_supporter_path(supporter)%></td>
+  </tr>
+  <% end %>
+</div>
+</table>
+
+<br>
+<div>
+<% if session[:pgnum].to_i <= 0%>
+<%= "<Previous" %>
+<% else %>
+<%= link_to '<Previous', supporters_path(pgnum: session[:pgnum].to_i-1)%>
+<% end %>
+<% for i in 0...@numofpg %>
+<%= link_to " #{i+1} ", supporters_path(pgnum: i) %>
+<% end %>
+<% if session[:pgnum].to_i > @numofpg-2 %>
+<%= "next>" %>
+<% else %>
+<%= link_to 'next>', supporters_path(pgnum: session[:pgnum].to_i+1)%>
+<% end %>
+</div>
